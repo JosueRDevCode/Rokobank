@@ -23,4 +23,21 @@ while ingresos < 0:
     print("Los ingresos no pueden ser negativos.")
     ingresos = float(input("Ingrese nuevamente los ingresos mensuales: "))
 
-print("Datos registrados correctamente.")
+
+total_deuda = 0
+for d in deudas:
+    total_deuda += d
+
+
+if ingresos == 0:
+    ratio = "Indefinido"
+else:
+    ratio = total_deuda / ingresos
+
+print("\n=== RESULTADOS PARCIALES ===")
+print("Total de deuda: S/", total_deuda)
+
+if ingresos != 0:
+    print("Ratio de endeudamiento:", round(ratio, 2))
+else:
+    print("Ratio de endeudamiento: No se puede dividir entre 0")
