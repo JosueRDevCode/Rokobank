@@ -1,22 +1,30 @@
-# Sistema de Analisis de Endeudamiento - RokoBank
+# Sistema de Análisis de Endeudamiento - RokoBank
 
 print("=== Sistema de Evaluación de Endeudamiento - RokoBank ===")
 
+
 dni = input("Ingrese el DNI del solicitante: ")
+
 
 num_deudas = int(input("¿Cuántas deudas tiene el cliente?: "))
 while num_deudas < 0:
     print("El número de deudas no puede ser negativo.")
     num_deudas = int(input("¿Cuántas deudas tiene el cliente?: "))
 
+
 deudas = []
 
+
 for i in range(num_deudas):
-    monto = float(input(f"Ingrese el monto de la deuda {i+1}: "))
+    print(f"Ingrese el monto de la deuda {i+1}: ")
+    monto = float(input())
+    
     while monto < 0:
-        print("El monto no puede ser negativo.")
-        monto = float(input(f"Ingrese nuevamente el monto de la deuda {i+1}: "))
+        print("El monto no puede ser negativo. Intente de nuevo.")
+        monto = float(input("Ingrese nuevamente el monto de la deuda: "))
+    
     deudas.append(monto)
+
 
 ingresos = float(input("Ingrese los ingresos mensuales del cliente: "))
 while ingresos < 0:
@@ -30,14 +38,29 @@ for d in deudas:
 
 
 if ingresos == 0:
-    ratio = "Indefinido"
+    ratio = "Indefinido (no se puede dividir entre 0)"
 else:
     ratio = total_deuda / ingresos
 
-print("\n=== RESULTADOS PARCIALES ===")
+
+if ingresos == 0:
+    riesgo = "No calculable"
+else:
+    if ratio <= 0.30:
+        riesgo = "Riesgo Bajo"
+    elif ratio <= 0.50:
+        riesgo = "Riesgo Moderado"
+    else:
+        riesgo = "Riesgo Alto"
+
+print("\n=== RESULTADOS ===")
+print("DNI del cliente:", dni)
+print("Deudas registradas:", deudas)
 print("Total de deuda: S/", total_deuda)
 
-if ingresos != 0:
-    print("Ratio de endeudamiento:", round(ratio, 2))
+if ingresos == 0:
+    print("Ratio de endeudamiento: Indefinido")
 else:
-    print("Ratio de endeudamiento: No se puede dividir entre 0")
+    print("Ratio de endeudamiento:", round(ratio, 2))
+
+print("Clasificación del riesgo:", riesgo)
